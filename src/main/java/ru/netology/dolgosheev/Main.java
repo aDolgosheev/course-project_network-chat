@@ -1,4 +1,4 @@
-package netology.dolgosheev;
+package ru.netology.dolgosheev;
 
 public class Main {
     public static void main(String[] args) {
