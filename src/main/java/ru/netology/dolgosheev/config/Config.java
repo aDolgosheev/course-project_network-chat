@@ -16,7 +16,7 @@ public class Config {
     private static final String PATH = "./settings/settings.properties";
 
     private int port;
-    //    private String host;
+    private String host;
 
     private Config() {
         FileInputStream fileSettings = null;
@@ -25,17 +25,17 @@ public class Config {
             Properties properties = new Properties();
             properties.load(fileSettings);
             port = Integer.parseInt(properties.getProperty("port"));
-//            host = properties.getProperty("host");
+            host = properties.getProperty("host");
         } catch (FileNotFoundException e1) {
-            LOGGER.log("Не найден файл настроек");
+            LOGGER.log("Properties config file not found");
         } catch (IOException e2) {
-            LOGGER.log("Ошибка класса " + Config.class.getName());
+            LOGGER.log("Class error " + Config.class.getName());
             e2.printStackTrace();
         } finally {
             try {
                 fileSettings.close();
             } catch (IOException e3) {
-                LOGGER.log("Ошибка класса " + Config.class.getName());
+                LOGGER.log("Class error " + Config.class.getName());
                 e3.printStackTrace();
             }
         }
@@ -52,7 +52,7 @@ public class Config {
         return port;
     }
 
-//    public String getHost() {
-//        return host;
-//    }
+    public String getHost() {
+        return host;
+    }
 }
