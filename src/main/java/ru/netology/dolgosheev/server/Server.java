@@ -54,13 +54,13 @@ public class Server {
 
     private class Connection extends Thread {
 
-        private BufferedReader in;
-        private PrintWriter out;
+        private BufferedReader input;
+        private PrintWriter output;
 
         public Connection(Socket socket) {
             try {
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                out = new PrintWriter(socket.getOutputStream(), true);
+                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                output = new PrintWriter(socket.getOutputStream(), true);
             } catch (IOException e) {
                 LOG.log("Class error " + Connection.class.getName());
                 e.printStackTrace();
@@ -70,13 +70,13 @@ public class Server {
         @Override
         public void run() {
             try {
-                String name = in.readLine();
+                String name = input.readLine();
                 LOG.log(name + " cames now");
                 sendMessageAllConnection(name + " cames now");
 
                 String message;
                 while (true) {
-                    message = in.readLine();
+                    message = input.readLine();
                     if ("exit".equals(message)) {
                         break;
                     }
@@ -97,15 +97,15 @@ public class Server {
 
         private void closeAll() {
             try {
-                in.close();
-                out.close();
+                input.close();
+                output.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         private void sendMessage(String message) {
-            out.println(message);
+            output.println(message);
         }
 
         private void sendMessageAllConnection(String message) {

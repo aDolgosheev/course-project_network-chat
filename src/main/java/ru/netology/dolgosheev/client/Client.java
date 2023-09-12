@@ -59,4 +59,27 @@ public class Client {
             e.printStackTrace();
         }
     }
+
+    private class Receiver extends Thread {
+
+        private static final Log LOG = Log.getInstance();
+
+        private final BufferedReader input;
+
+        public Receiver(BufferedReader input) {
+            this.input = input;
+        }
+
+        @Override
+        public void run() {
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    System.out.println(input.readLine());
+                }
+            } catch (IOException e) {
+                LOG.log("Class error " + ru.netology.dolgosheev.client.Client.Receiver.class.getName());
+                e.printStackTrace();
+            }
+        }
+    }
 }
